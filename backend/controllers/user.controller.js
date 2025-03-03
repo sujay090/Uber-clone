@@ -23,3 +23,28 @@ export async function registerUser(req, res, next) {
     console.log(err);
   }
 }
+
+
+export async function loginUser(req,res,next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array()});
+  }
+  try {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({email}).select('+password')
+    if(!user){
+      return res.status(401).json({message:"Invalide email or password "})
+    }
+
+    const compareData = await user.comparePassword(password);
+    if(!compareData){
+      return res.status(401).json({message:'Invalid emial or password'})
+    }
+    const token = user.generateAuthToken();
+    res.status(201).json({ token, user });
+    next();
+  } catch (err) {
+    console.log(err);
+  }
+}

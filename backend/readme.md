@@ -67,6 +67,22 @@ POST /users/register
 }
 ```
 
+## User Login Endpoint
+
+### POST /users/login
+
+This endpoint allows users to log in to their account.
+
+#### Request Body
+
+- `email` (string, required): The email address of the user. Must be a valid email format.
+- `password` (string, required): The password of the user. Must be at least 3 characters long.
+
+#### Responses
+
+- **200 OK**: Login successful. Returns user information.
+- **400 Bad Request**: Invalid email or password. Returns error messages.
+
 ## Technologies Used
 - **Node.js**
 - **Express.js**
@@ -104,7 +120,4 @@ POST /users/register
 - After successful registration, use the received JWT token for authentication in subsequent requests.
 - Handle validation errors properly in the frontend for a better user experience.
 
----
-**Author:** Your Name  
-📧 Contact: your-email@example.com
 

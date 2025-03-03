@@ -11,4 +11,5 @@ app.use(express.urlencoded({extended:true}))
 await connectDB()
 
 app.use("/users",userRoutes)
+
 export default app  
