@@ -67,11 +67,11 @@ POST /users/register
 }
 ```
 
-## User Login Endpoint
-
-### POST /users/login
-
-This endpoint allows users to log in to their account.
+### 2. User Login
+**Endpoint:**
+```
+POST /users/login
+```
 
 #### Request Body
 
@@ -82,6 +82,56 @@ This endpoint allows users to log in to their account.
 
 - **200 OK**: Login successful. Returns user information.
 - **400 Bad Request**: Invalid email or password. Returns error messages.
+
+### 3. User Logout
+**Endpoint:**
+```
+POST /users/logout
+```
+
+**Request Headers:**
+- `Authorization` (string, required): Bearer token received upon login.
+
+**Responses:**
+- **200 OK**: Logout successful. Returns a confirmation message.
+```json
+{
+  "message": "Successfully logged out"
+}
+```
+- **401 Unauthorized**: No valid token provided.
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+### 4. User Profile
+**Endpoint:**
+```
+GET /users/profile
+```
+
+**Request Headers:**
+- `Authorization` (string, required): Bearer token received upon login.
+
+**Responses:**
+- **200 OK**: Returns user profile information.
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "johndoe@example.com"
+}
+```
+- **401 Unauthorized**: No valid token provided.
+```json
+{
+  "error": "Unauthorized"
+}
+```
 
 ## Technologies Used
 - **Node.js**

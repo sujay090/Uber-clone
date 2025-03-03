@@ -104,5 +104,27 @@ This manual provides step-by-step instructions for creating a user registration 
    - Generate an authentication token for the user.
    - Return a 200 status with the token and user data.
 
+### Step 10: Define User Logout Route
+1. Open the `user.routes.js` file.
+2. Import the authentication middleware that checks if the user is logged in.
+3. Create a new POST route for `/logout`.
+4. Link this route to a function in the user controller that will handle the logout logic.
+
+### Step 11: Implement Logout Logic
+1. Open the `user.controller.js` file.
+2. Create a function called `logoutUser`.
+3. In this function, implement the logic to invalidate the user's session or token.
+4. Send a response back to the user confirming that they have successfully logged out.
+
+### Step 12: Define User Profile Route
+1. Go back to the `user.routes.js` file.
+2. Create a new GET route for `/profile`.
+3. Link this route to a function in the user controller that will handle retrieving the user's profile information.
+
+### Step 13: Implement Get User Profile Logic
+1. In the `user.controller.js` file, create a function called `getUserProfile`.
+2. In this function, access the user's information from the request (this should be done by the authentication middleware).
+3. Send a response back to the user with their profile information, such as their full name and email address.
+
 ## Conclusion
 By following these steps, you will have successfully created a user registration endpoint in your backend application. Ensure to test the endpoint thoroughly to confirm that it works as expected.
