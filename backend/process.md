@@ -128,3 +128,40 @@ This manual provides step-by-step instructions for creating a user registration 
 
 ## Conclusion
 By following these steps, you will have successfully created a user registration endpoint in your backend application. Ensure to test the endpoint thoroughly to confirm that it works as expected.
+
+# Process for Creating Captain Module
+
+This document outlines the steps to create a Captain model, controller, service, and route logic in the application.
+
+## Step 1: Create the Captain Model
+1. **Define the Model**: Create a Captain model that represents the structure of a captain's data in the database. Include fields such as:
+   - Full name (first and last name)
+   - Email (unique)
+   - Password (hashed for security)
+2. **Set Validation Rules**: Implement validation rules to ensure:
+   - The first name has a minimum length.
+   - The email is required and unique.
+
+## Step 2: Create the Captain Service
+1. **Business Logic**: Develop a service that contains the business logic for captain-related operations. This service will interact with the Captain model.
+2. **Implement Registration**: In the service, create a method to register a new captain that:
+   - Hashes the password for security.
+   - Creates a new captain instance with the provided data.
+   - Saves the captain instance to the database.
+
+## Step 3: Create the Captain Controller
+1. **Handle Requests**: Create a controller to manage incoming requests related to captains. This controller will utilize the service for operations.
+2. **Implement Registration Logic**: In the controller, create a method to handle captain registration requests that:
+   - Calls the service to register the captain.
+   - Returns a success response with the captain's information or an error message if an issue occurs.
+
+## Step 4: Create the Captain Routes
+1. **Define Routes**: Set up routes for captain-related endpoints, such as registering a captain.
+2. **Connect to Controller**: Ensure the routes are linked to the appropriate controller methods so that requests to the route trigger the corresponding controller logic.
+
+## Step 5: Integrate the Routes in Your Application
+1. **Use the Routes**: In the main application file, import the captain routes and integrate them into the Express application.
+2. **Set Up Middleware**: Include necessary middleware, such as JSON parsing, to handle incoming requests properly.
+
+## Summary
+By following these steps, you will have created a complete Captain module in your application, including a model for data structure, a service for business logic, a controller for handling requests, and routes for defining API endpoints. This modular approach helps maintain organized and maintainable code.

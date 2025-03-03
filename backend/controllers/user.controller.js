@@ -2,7 +2,6 @@ import BlacklistedToken from "../models/BlacklistToken.model.js";
 import userModel from "../models/User.model.js";
 import { createUser } from "../services/user.service.js";
 import { validationResult } from "express-validator";
-import jwt from 'jsonwebtoken'
 export async function registerUser(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -10,6 +9,10 @@ export async function registerUser(req, res, next) {
   }
   try {
     const { fullname, email, password } = req.body;
+    const isUserExist = await userModel.findOne({email})
+    if(isUserExist){
+        return res.status(400).json({message:"User already exist "})
+    }
     const hashedPassword = await userModel.hashPassword(password);
     const user = await createUser({
       firstname: fullname.firstname,

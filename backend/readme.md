@@ -67,7 +67,60 @@ POST /users/register
 }
 ```
 
-### 2. User Login
+### 2. Captain Register
+**Endpoint:**
+```
+POST /captains/register
+```
+
+**Request Body (JSON):**
+```json
+{
+  "fullname": {
+    "firstname": "Captain",
+    "lastname": "Smith"
+  },
+  "email": "captainsmith@example.com",
+  "password": "captainpassword123"
+}
+```
+
+**Success Response:**
+```json
+{
+  "token": "your_generated_jwt_token",
+  "captain": {
+    "fullname": {
+      "firstname": "Captain",
+      "lastname": "Smith"
+    },
+    "email": "captainsmith@example.com"
+  }
+}
+```
+
+**Error Responses:**
+- **400 Bad Request** (Validation Errors):
+```json
+{
+  "errors": [
+    {
+      "msg": "First name must be at least 3 characters long",
+      "param": "fullname.firstname",
+      "location": "body"
+    }
+  ]
+}
+```
+
+- **500 Internal Server Error:**
+```json
+{
+  "error": "Something went wrong"
+}
+```
+
+### 3. User Login
 **Endpoint:**
 ```
 POST /users/login
@@ -83,7 +136,7 @@ POST /users/login
 - **200 OK**: Login successful. Returns user information.
 - **400 Bad Request**: Invalid email or password. Returns error messages.
 
-### 3. User Logout
+### 4. User Logout
 **Endpoint:**
 ```
 POST /users/logout
@@ -106,7 +159,7 @@ POST /users/logout
 }
 ```
 
-### 4. User Profile
+### 5. User Profile
 **Endpoint:**
 ```
 GET /users/profile
