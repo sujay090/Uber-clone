@@ -120,26 +120,41 @@ POST /captains/register
 }
 ```
 
-### 3. User Login
+### 3. Captain Login
 **Endpoint:**
 ```
-POST /users/login
+POST /captains/login
 ```
 
 #### Request Body
-
-- `email` (string, required): The email address of the user. Must be a valid email format.
-- `password` (string, required): The password of the user. Must be at least 3 characters long.
+- `email` (string, required): The email address of the captain. Must be a valid email format.
+- `password` (string, required): The password of the captain. Must be at least 3 characters long.
 
 #### Responses
-
-- **200 OK**: Login successful. Returns user information.
+- **200 OK**: Login successful. Returns captain information.
+```json
+{
+  "token": "your_generated_jwt_token",
+  "captain": {
+    "fullname": {
+      "firstname": "Captain",
+      "lastname": "Smith"
+    },
+    "email": "captainsmith@example.com"
+  }
+}
+```
 - **400 Bad Request**: Invalid email or password. Returns error messages.
+```json
+{
+  "error": "Invalid email or password"
+}
+```
 
-### 4. User Logout
+### 4. Captain Logout
 **Endpoint:**
 ```
-POST /users/logout
+POST /captains/logout
 ```
 
 **Request Headers:**
@@ -159,24 +174,24 @@ POST /users/logout
 }
 ```
 
-### 5. User Profile
+### 5. Captain Profile
 **Endpoint:**
 ```
-GET /users/profile
+GET /captains/profile
 ```
 
 **Request Headers:**
 - `Authorization` (string, required): Bearer token received upon login.
 
 **Responses:**
-- **200 OK**: Returns user profile information.
+- **200 OK**: Returns captain profile information.
 ```json
 {
   "fullname": {
-    "firstname": "John",
-    "lastname": "Doe"
+    "firstname": "Captain",
+    "lastname": "Smith"
   },
-  "email": "johndoe@example.com"
+  "email": "captainsmith@example.com"
 }
 ```
 - **401 Unauthorized**: No valid token provided.

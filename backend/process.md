@@ -165,3 +165,44 @@ This document outlines the steps to create a Captain model, controller, service,
 
 ## Summary
 By following these steps, you will have created a complete Captain module in your application, including a model for data structure, a service for business logic, a controller for handling requests, and routes for defining API endpoints. This modular approach helps maintain organized and maintainable code.
+
+# Process for Creating Captain Login, Profile, and Logout Endpoints
+
+## Step 1: Create Captain Login Endpoint
+1. **Define the Route**: In `captain.routes.js`, create a POST route for `/login`.
+2. **Import Required Modules**: Import `express`, `express-validator`, and the captain controller.
+3. **Set Up Validation**: Use `express-validator` to validate the incoming request data:
+   - Check that the email is in a valid format.
+   - Ensure the password is provided and meets length requirements.
+4. **Link to Controller**: Connect the route to the `loginCaptain` function in the captain controller.
+
+## Step 2: Implement Captain Login Logic
+1. **Create the Controller Function**: In `captain.controller.js`, define the `loginCaptain` function.
+2. **Validate Request**: Use `express-validator` to check for validation errors.
+3. **Find Captain**: Search for the captain in the database using the provided email.
+4. **Check Password**: If the captain is found, compare the provided password with the stored hashed password.
+5. **Generate Token**: If the password is correct, generate a JWT token for the captain.
+6. **Return Response**: Send a success response with the token and captain information or an error message if login fails.
+
+## Step 3: Create Captain Profile Endpoint
+1. **Define the Route**: In `captain.routes.js`, create a GET route for `/profile`.
+2. **Import Required Modules**: Import `express` and the captain controller.
+3. **Link to Controller**: Connect the route to the `getCaptainProfile` function in the captain controller.
+
+## Step 4: Implement Captain Profile Logic
+1. **Create the Controller Function**: In `captain.controller.js`, define the `getCaptainProfile` function.
+2. **Access User Info**: Use the authentication middleware to access the logged-in captain's information.
+3. **Return Response**: Send a response with the captain's profile information.
+
+## Step 5: Create Captain Logout Endpoint
+1. **Define the Route**: In `captain.routes.js`, create a POST route for `/logout`.
+2. **Import Required Modules**: Import `express` and the captain controller.
+3. **Link to Controller**: Connect the route to the `logoutCaptain` function in the captain controller.
+
+## Step 6: Implement Captain Logout Logic
+1. **Create the Controller Function**: In `captain.controller.js`, define the `logoutCaptain` function.
+2. **Invalidate Session**: Implement logic to invalidate the captain's session or token.
+3. **Return Response**: Send a success response confirming the logout.
+
+## Summary
+By following these steps, you will have created the Captain Login, Profile, and Logout endpoints in your application. Ensure to test each endpoint thoroughly to confirm they work as expected.
