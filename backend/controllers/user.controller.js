@@ -52,7 +52,7 @@ export async function loginUser(req,res,next) {
       secure:process.env.NODE_ENV === 'production',
       maxAge:360000
     })
-    res.status(201).json({ token, user });
+    res.status(200).json({ token, user });
     next();
   } catch (err) {
     console.log(err);

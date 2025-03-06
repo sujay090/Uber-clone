@@ -1,19 +1,57 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { CaptainDataContext } from "../context/CaptainContext";
 const CaptainSignup = () => {
   const [formValue, setFormValue] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    color: "",
+    plate: "",
+    capacity: "",
+    vehicleType: "",
   });
-  const handleSubmit = (e) => {
+
+  const { captain, setCaptain } = useContext(CaptainDataContext);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const newCaptain = {
+      fullname: {
+        firstname: formValue.firstName,
+        lastname: formValue.lastName,
+      },
+      email: formValue.email,
+      password: formValue.password,
+      vehicle: {
+        color: formValue.color,
+        plate: formValue.plate,
+        capacity: formValue.capacity,
+        vehicleType: formValue.vehicleType,
+      },
+    };
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/captain/register`,
+      newCaptain
+    );
+    if (response.status === 201) {
+      const data = response.data;
+      setCaptain(data.captain)
+      localStorage.setItem("captainToken", data.token);
+      navigate("/captain-home");
+    }
     setFormValue({
       firstName: "",
       lastName: "",
       email: "",
       password: "",
+      color: "",
+      plate: "",
+      capacity: "",
+      vehicleType: "",
     });
   };
   const handelChange = (e) => {
@@ -70,7 +108,52 @@ const CaptainSignup = () => {
             required
             placeholder="Password "
           />
-          <button className="bg-[#111] text-[#fff] font-semibold mb-2 rounded px-4 py-2 w-full text-sm  ">
+          <div>
+            <div className="flex gap-1">
+              <input
+                name="color"
+                onChange={handelChange}
+                value={formValue.color}
+                className="bg-[#eeee] mb-4 rounded px-4 py-2  w-full text-lg placeholder:text-base"
+                type="text"
+                required
+                placeholder="Vehicle color "
+              />
+              <input
+                name="plate"
+                onChange={handelChange}
+                value={formValue.plate}
+                className="bg-[#eeee] mb-4 rounded px-4 py-2  w-full text-lg placeholder:text-base"
+                type="text"
+                required
+                placeholder="Vehicle Plate "
+              />
+            </div>
+            <div className="flex gap-1">
+              <input
+                name="capacity"
+                onChange={handelChange}
+                value={formValue.capacity}
+                className="bg-[#eeee] mb-4 w-1/2 rounded px-4 py-2  text-lg placeholder:text-base"
+                type="number"
+                required
+                placeholder="Capacity"
+              />
+              <select
+                className="bg-[#eeee] h-11 py-2 w-1/2 rounded"
+                name="vehicleType"
+                id=""
+                value={formValue.vehicleType}
+                onChange={handelChange}
+              >
+                <option value="" hidden>Select Type</option>
+                <option value="car">Car</option>
+                <option value="motorcycle">Motorcycle</option>
+                <option value="auto">Auto</option>
+              </select>
+            </div>
+          </div>
+          <button className="bg-[#111] text-[#fff] font-semibold mb-2 rounded px-4 py-4 w-full text-sm">
             Sign Up
           </button>
         </form>

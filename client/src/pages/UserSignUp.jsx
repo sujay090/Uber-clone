@@ -1,5 +1,8 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UserDataContext } from "../context/UserContext";
 const UserSignUp = () => {
   const [formValue, setFormValue] = useState({
     firstName: "",
@@ -7,8 +10,30 @@ const UserSignUp = () => {
     email: "",
     password: "",
   });
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const { user, setUser } = useContext(UserDataContext);
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const newUser = {
+      fullname: {
+        firstname: formValue.firstName,
+        lastname: formValue.lastName,
+      },
+      email: formValue.email,
+      password: formValue.password,
+    };
+
+    const respose = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/users/register`,
+      newUser
+    );
+    if (respose.status === 201) {
+      const data = respose.data;
+      setUser(data.user);
+      localStorage.setItem("token", data.token);
+      navigate("/start");
+    }
     setFormValue({
       firstName: "",
       lastName: "",

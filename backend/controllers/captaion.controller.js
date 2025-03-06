@@ -23,7 +23,7 @@ export async function registerCaptain(req, res, next) {
       color: vehicle.color,
       plate: vehicle.plate,
       capacity: vehicle.capacity,
-      vehicleType: vehicle.vehicleType,
+      vehicleType: vehicle.vehicleType, 
     });
 
     const token = captain.generateAuthToken();
