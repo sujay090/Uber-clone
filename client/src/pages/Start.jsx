@@ -4,6 +4,8 @@ import gsap from "gsap";
 import LoacationSearchPanel from "../components/LoacationSearchPanel";
 import VehiclePanel from "../components/VehiclePanel";
 import ConformVehicle from "../components/ConformVehicle";
+import LokingFroDriver from "../components/LokingFroDriver";
+import WaitingDriver from "../components/WaitingDriver";
 const Start = () => {
   const [place, setPlace] = useState({
     location: "",
@@ -12,9 +14,13 @@ const Start = () => {
   const [panelOpen, setPanelOpen] = useState(false);
   const[vehiclePanel,setVehiclePanel] = useState(false)
   const[selectvehiclePanel,setSelectvehiclePanel] = useState(false)
+  const[lookingForDriverPanel,setlookingForDriverPanel] = useState(false)
+  const[watingForDriverPanel,setwatingForDriverPanel] = useState(false)
   const panelRef = useRef(null);
   const vehiclePanelRef = useRef(null);
   const ridePanelRef = useRef(null);
+  const lookingForDriverPanelRef = useRef(null);
+  const watingForDriverPanelRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -68,6 +74,35 @@ const Start = () => {
       }
     },
     [selectvehiclePanel]
+  );
+  useGSAP(
+    function () {
+      if (lookingForDriverPanel) {
+        gsap.to(lookingForDriverPanelRef.current, {
+            transform:'translateY(0)'
+        });
+      } else {
+        gsap.to(lookingForDriverPanelRef.current, {
+            transform:'translateY(100%)'
+        });
+      }
+    },
+    [lookingForDriverPanel]
+  );
+
+  useGSAP(
+    function () {
+      if (watingForDriverPanel) {
+        gsap.to(watingForDriverPanelRef.current, {
+            transform:'translateY(0)'
+        });
+      } else {
+        gsap.to(watingForDriverPanelRef.current, {
+            transform:'translateY(100%)'
+        });
+      }
+    },
+    [watingForDriverPanel]
   );
   return (
     <div className="h-screen relative overflow-hidden">
@@ -126,11 +161,17 @@ const Start = () => {
           <LoacationSearchPanel setPanelOpen={setPanelOpen} setVehiclePanel={setVehiclePanel} />
         </div>
       </div>
-      <div ref={vehiclePanelRef}  className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-6 w-full space-y-3">
+      <div ref={vehiclePanelRef}  className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-6 w-full space-y-3 pt-12">
        <VehiclePanel setSelectvehiclePanel={setSelectvehiclePanel}  setVehiclePanel={setVehiclePanel}  />
       </div>
-      <div ref={ridePanelRef}  className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-6 w-full space-y-3">
-       <ConformVehicle setSelectvehiclePanel={setSelectvehiclePanel}/>
+      <div ref={ridePanelRef}  className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-6 w-full space-y-3 pt-12">
+       <ConformVehicle setSelectvehiclePanel={setSelectvehiclePanel} setlookingForDriverPanel={setlookingForDriverPanel} />
+      </div>
+      <div ref={lookingForDriverPanelRef} className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-6 w-full space-y-3 pt-12">
+       <LokingFroDriver setlookingForDriverPanel={setlookingForDriverPanel} />
+      </div>
+      <div ref={watingForDriverPanelRef} className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-6 w-full pt-12">
+       <WaitingDriver watingForDriverPanel={watingForDriverPanel} />
       </div>
     </div>
   );
