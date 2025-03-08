@@ -12,6 +12,7 @@ import CaptainProtectd from "./pages/CaptainProtectd";
 import CaptainLogout from "./pages/CaptainLogout";
 import CaptainHome from "./pages/CaptainHome";
 import Riding from "./pages/Riding";
+import CaptainRiding from "./pages/CaptainRiding";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path="/sign-up" element={<UserSignUp />} />
       <Route path="/captain-login" element={<CaptainLogin />} />
       <Route path="/riding" element={<Riding />} />
+      <Route path="/captain-riding" element={<CaptainRiding />} />
       <Route path="/captain-sign-up" element={<CaptainSignup />} />
       <Route
         path="user/logout"

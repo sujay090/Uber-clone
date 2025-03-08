@@ -1,6 +1,6 @@
 import React from "react";
 
-const RidePopUp = ({setRidePoUpPanel}) => {
+const RidePopUp = ({setRidePoUpPanel,setConfirmRidePopUpPanel}) => {
   return (
     <div className="p-4">
       <h2
@@ -51,7 +51,9 @@ const RidePopUp = ({setRidePoUpPanel}) => {
           </div>
         </div>
         <button
-          onClick={() => {}}
+          onClick={() => {
+            setConfirmRidePopUpPanel(true)
+          }}
           className="w-full bg-green-400 text-white font-semibold p-2 rounded-lg"
         >
           Confirm
